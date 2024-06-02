@@ -1,0 +1,33 @@
+name: lab04
+on: [push]
+jobs:
+  linuxrun:
+      runs-on: ubuntu-latest
+      steps:
+        - name: checks
+          uses: actions/checkout@v4
+          
+        - run: |
+               cmake -H. -B_build
+               cmake --build _build
+               
+        - name: Configure and Build Project
+          uses: threeal/cmake-action@v1.3.0
+          
+  windowsrun:
+        runs-on: windows-latest
+        steps:
+          - name: checks
+            uses: actions/checkout@v4
+            
+          - name: win_build
+            uses: microsoft/setup-msbuild@v1.0.2
+            
+          - run: |
+              mkdir _build
+              cd _build
+              cmake ..
+              cmake --build .
+              
+          - name: Configure and Build Project
+            uses: threeal/cmake-action@v1.3.0
